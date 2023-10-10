@@ -49,14 +49,12 @@ def run_nougat_process(file_path):
         
                 print(ocr_result)
                 
-                nougat_response = output_line
+                nougat_response = ocr_result
                 
                 if process.poll() is None:
-                    time.sleep(16)
                     print("Terminating Nougat server...")
-                    process.terminate()
                     process.wait()  # Wait for the process to finish
-                    
+                    process.terminate()
 
                 break
 
@@ -110,7 +108,6 @@ def trigger_nougat():
             return resp
 
     if nougat_success:
-        global nougat_response
         
         # FILE SUCCESS
         resp = jsonify({
@@ -118,7 +115,6 @@ def trigger_nougat():
             "status": "success",
             "file_paths": file_paths,
             "nougat_response": nougat_response
-            
         })
         resp.status_code = 201
         return resp

@@ -18,8 +18,6 @@ const FileUpload = () => {
         const formData = new FormData();
         formData.append('files[]', file);
 
-
-
         // Fetch the success of file uploading
 
         fetch('http://127.0.0.1:3400/upload_image_path', {

@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import './App'
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 
 // UPDATE THE UI, CURRENTLY A GENERIC CHAT SCREEN
-API_KEY = null
 
 function Gpt() {
     const [isTyping, setIsTyping] = useState(false)
     const [nouResponses, setNouResponses] = useState([
         {
-            nougatData: "BLAH BLAH",
+            message: "BLAH BLAH",
             sender: "ChatGPT"
         }
     ]);
 
     const handleRequest = async (nougatData) => {
         const newRequest = {
-            nougatData: nougatData,
-            sender: "nougat",
+            message: nougatData,
+            sender: "user",
             direction: "outgoing"
         }
 
@@ -26,7 +25,7 @@ function Gpt() {
         const newRequests = [...nouResponses, newRequest];
 
         // Every request is met with a "typing..." bubble
-        setResponses(newRequests);
+        setNouResponses(newRequests);
         setIsTyping(true);
         await processToGPT(newRequests);
     }
@@ -41,7 +40,7 @@ function Gpt() {
             } else {
                 role="user"
             }
-            return { role: role, content: textObj.nougatData}
+            return { role: role, content: textObj.message}
         })
 
         const prePrompt = {
@@ -50,7 +49,7 @@ function Gpt() {
         }
 
         const apiRequestBody = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-4",
             "messages": [
                 prePrompt,    // What should GPT "act" like?
                 ...nougatText // [nougatData1, nougatData2, nougatData3, etc]
@@ -58,7 +57,7 @@ function Gpt() {
         }
 
         // Fetch the API URL 
-        await fetch('https://api.openai.com/v1/chat/completions', {
+        await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -75,7 +74,7 @@ function Gpt() {
             // Create an array of Nougat's responses
             setNouResponses(
                 [...dataText, {
-                    nougatData: data.choices[0].nougatData.content,
+                    message: data.choices[0].message.content,
                     sender: "ChatGPT"
                 }]
             );
@@ -93,13 +92,13 @@ function Gpt() {
                     <ChatContainer>
                         <MessageList
                             scrollBehavior="smooth"
-                            typingIndicator={typing ? <TypingIndicator content="GPT is typing..."/> : null}
+                            typingIndicator={isTyping ? <TypingIndicator content="GPT is typing..."/> : null}
                         >
-                            {responses.map((nougatData, i) => {
+                            {nouResponses.map((nougatData, i) => {
                             return <Message key={i} model={nougatData}/>
                             })}
                         </MessageList>
-                        <MessageInput placeholder="NOUGAT RESPONSE HERE" onSend={handleSend}/>
+                        <MessageInput placeholder="NOUGAT RESPONSE HERE" onSend={handleRequest}/>
                     </ChatContainer>
                 </MainContainer>
             </div>
