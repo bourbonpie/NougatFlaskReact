@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App'
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
+API_KEY = null
 
 function Gpt() {
     const [isTyping, setIsTyping] = useState(false)
