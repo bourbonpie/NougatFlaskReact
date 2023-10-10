@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 # NougatFlaskReact
-version 2, upload messages to Nougat, sent from React.
+Upload documents to Meta's Nougat API, and send them to OpenAI's ChatGPT API in React.
 =======
 # Getting Started with Create React App
 
