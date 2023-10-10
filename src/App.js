@@ -3,6 +3,7 @@ import './App.css';
 
 const FileUpload = () => {
     const [file, setFile] = useState('')
+    
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
