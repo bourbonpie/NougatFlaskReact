@@ -16,8 +16,6 @@ CORS(app)
 command = 'nougat_api'
 url = 'http://127.0.0.1:8503/predict/'
 
-openai.api_key='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'
-os.environ['OPENAI_API_KEY'] = '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'
 nougat_process = None
 nougat_response = None
 
