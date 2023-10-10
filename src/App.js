@@ -3,7 +3,7 @@ import './App.css';
 
 const FileUpload = () => {
     const [file, setFile] = useState('')
-    
+
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -18,11 +18,14 @@ const FileUpload = () => {
         const formData = new FormData();
         formData.append('files[]', file);
 
+
+
         // Fetch the success of file uploading
 
         fetch('http://127.0.0.1:3400/upload_image_path', {
             method: 'POST',
-            body: formData
+            body: formData,
+            cache: "no-cache"
         })
         .then(response => response.json())
         .then(data => {

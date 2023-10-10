@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App'
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
+
+// UPDATE THE UI, CURRENTLY A GENERIC CHAT SCREEN
 API_KEY = null
 
 function Gpt() {
